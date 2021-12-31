@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Br/9g8MwmD0l/xM32baz3ozda/e/hOOnLxaQlOqgt/47OqOuJLBvILsc/G0Htz+PASiKYpkGo5Gbxve1dbPMZQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\andre\\Git\\journal\\Journal.Repository\\Journal.Repository.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\andre\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
+    "C:\\Users\\andre\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\andre\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\andre\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
