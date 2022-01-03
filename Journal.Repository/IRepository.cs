@@ -4,8 +4,8 @@ namespace Journal.Repository
     {
         bool Insert(T insertObject);
         bool Update(T updateObject);
-        bool Delete(int objectId);
-        T? Find(int objecId);
+        bool Delete(int objecttId);
+        T? Find(int objectId);
         IEnumerable<T> List();
     }
 }

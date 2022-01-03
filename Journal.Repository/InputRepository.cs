@@ -56,7 +56,7 @@ public class InputRepository : BaseRepository, IRepository<Input>
         var query = new StringBuilder();
 
         query.AppendLine(@"
-            DELETE FROM INPUTS WHERE ID = @Id
+            INSERT INTO INPUTS(UserId, InsertionDateTime, InputText) VALUES (@UserId, InsertionDateTime. InputText)
         ");
 
         logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
