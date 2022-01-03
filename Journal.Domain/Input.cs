@@ -16,6 +16,7 @@ public class Input
     }
 
     public int Id { get; set; }
+    public int UserId { get; set; }
     public DateTime InsertionDateTime { get; set; }
     public DateTime? UdateDateTie { get; set; }
     public string InputText { get; set; }
