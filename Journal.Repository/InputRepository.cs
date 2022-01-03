@@ -1,5 +1,9 @@
-﻿using Journal.Domain;
+﻿using System.Data.Common;
+using System.Text;
+using Journal.Domain;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Journal.Repository;
 
@@ -8,30 +12,83 @@ namespace Journal.Repository;
 /// </summary>
 public class InputRepository : BaseRepository, IRepository<Input>
 {
-    public InputRepository(IConfiguration config) : base(config) { }
+    public InputRepository(IConfiguration config, ILogger logger) : base(config, logger) { }
 
     public bool Delete(int objectId)
     {
-        throw new NotImplementedException();
+        var query = new StringBuilder();
+
+        query.AppendLine(@"
+            DELETE FROM INPUTS WHERE ID = @Id
+        ");
+
+        var parameters = new
+        {
+            @Id = objectId
+        };
+
+        logger.LogInformation($"Trying to delete Input with ID: {objectId}");
+        return ExecuteNonQuery(query.ToString(), parameters);
     }
 
-    public Input Find(int objecId)
+    public Input? Find(int objectId)
     {
-        throw new NotImplementedException();
+        var query = new StringBuilder();
+        query.AppendLine(@"
+            SELECT
+                *
+            FROM
+                INPUTS
+            WHERE ID = @Id
+        ");
+
+        var parameters = new
+        {
+            @Id = objectId
+        };
+
+        logger.LogInformation($"Trying to find Input by ID: {objectId}");
+        return Find<Input>(query.ToString(), parameters);
     }
 
     public bool Insert(Input insertObject)
     {
-        throw new NotImplementedException();
+        var query = new StringBuilder();
+
+        query.AppendLine(@"
+            DELETE FROM INPUTS WHERE ID = @Id
+        ");
+
+        logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
+        return ExecuteNonQuery(query.ToString(), insertObject);
     }
 
     public IEnumerable<Input> List()
     {
-        throw new NotImplementedException();
+        var query = new StringBuilder();
+        query.AppendLine(@"
+            SELECT
+                *
+            FROM
+                INPUTS
+        ");
+
+        logger.LogInformation($"Trying to list all Inputs");
+        return List<Input>(query.ToString());
     }
 
     public bool Update(Input updateObject)
     {
-        throw new NotImplementedException();
+        var query = new StringBuilder();
+
+        query.AppendLine(@"
+            UDATE INPUTS SET
+                InputText = @InputText,
+                UpdateDateTime = @UpdateDateTime
+            WHERE ID = @Id
+        ");
+
+        logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(updateObject)}");
+        return ExecuteNonQuery(query.ToString(), updateObject);
     }
 }

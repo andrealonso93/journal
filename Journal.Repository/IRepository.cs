@@ -5,7 +5,7 @@ namespace Journal.Repository
         bool Insert(T insertObject);
         bool Update(T updateObject);
         bool Delete(int objectId);
-        T Find(int objecId);
+        T? Find(int objecId);
         IEnumerable<T> List();
     }
 }
