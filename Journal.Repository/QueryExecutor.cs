@@ -7,30 +7,28 @@ using Microsoft.Extensions.Logging;
 
 namespace Journal.Repository;
 
-public class BaseRepository
+public class QueryExecutor : IQueryExecutor
 {
-    protected readonly IDbConnection connection;
-    protected readonly ILogger logger;
+    protected readonly IDbConnection _connection;
+    protected readonly ILogger _logger;
 
-    public BaseRepository(IConfiguration config, ILogger logger)
+    public QueryExecutor(IConfiguration config, ILogger logger)
     {
         var connectionString = config.GetConnectionString("SQL_Connection");
-        this.connection = new SqlConnection(connectionString);
-
-        this.logger = logger;
+        _connection = new SqlConnection(connectionString);
+        _logger = logger;
     }
 
     public bool ExecuteNonQuery(string query, object parameters)
     {
         try
         {
-            connection.Execute(query, parameters);
-
+            _connection.Execute(query, parameters);
             return true;
         }
         catch (DbException dbException)
         {
-            logger.LogError(dbException, "Error executing non query db script.", query);
+            _logger.LogError(dbException, "Error executing non query db script: {Query}", query);
             return false;
         }
     }
@@ -39,24 +37,24 @@ public class BaseRepository
     {
         try
         {
-            return connection.Query<T>(query, parameters).FirstOrDefault();
+            return _connection.Query<T>(query, parameters).FirstOrDefault();
         }
         catch (DbException dbException)
         {
-            logger.LogError(dbException, "Error executing find query.", query);
+            _logger.LogError(dbException, "Error executing find query: {Query}", query);
             return default;
         }
     }
 
-    public IEnumerable<T> List<T>(string query, object? parameters = null)
+    public IEnumerable<T> List(string query, object? parameters = null)
     {
         try
         {
-            return connection.Query<T>(query, parameters);
+            return _connection.Query<T>(query, parameters);
         }
         catch (DbException dbException)
         {
-            logger.LogError(dbException, "Error executing list query.", query);
+            _logger.LogError(dbException, "Error executing list query: {Query}", query);
             return new List<T>();
         }
     }

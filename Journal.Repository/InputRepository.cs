@@ -10,7 +10,7 @@ namespace Journal.Repository;
 /// <summary>
 /// Repository to mange database operations of journal inputs
 /// </summary>
-public class InputRepository : BaseRepository, IRepository<Input>
+public class InputRepository : QueryExecutor, IRepository<Input>
 {
     public InputRepository(IConfiguration config, ILogger logger) : base(config, logger) { }
 
