@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Text;
+﻿using System.Text;
 using Journal.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
