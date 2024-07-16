@@ -5,14 +5,19 @@
 /// </summary>
 public class Input
 {
+    public Input() { }
+
     /// <summary>
     /// Journal input constructor
     /// </summary>
     /// <param name="inputText">Text input of the journal</param>
-    public Input(string inputText)
+    public Input BuildNewInput(string inputText)
     {
-        InsertionDateTime = DateTime.Now;
-        InputText = inputText;
+        return new Input
+        {
+            InsertionDateTime = DateTime.Now,
+            InputText = inputText
+        };
     }
 
     public int Id { get; set; }

@@ -1,7 +1,18 @@
 using Journal.Database;
+using Journal.Domain;
+using Journal.Repository;
+using Journal.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Logging.ClearProviders();
+builder.Services.AddLogging(config =>
+{
+    config.AddDebug();
+    config.AddConsole();
+});
 
 // Add services to the container.
 
@@ -12,8 +23,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<InputContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
 
-var app = builder.Build();
+builder.Services.AddScoped<IQueryExecutor, SqlQueryExecutor>();
+builder.Services.AddScoped<IRepository<Input>, InputRepository>();
 
+builder.Services.AddScoped<IInputService, InputService>();
+
+var app = builder.Build();
+app.Logger.LogInformation("Application started");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

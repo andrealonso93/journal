@@ -2,7 +2,7 @@
 
 public interface IQueryExecutor
 {
-    bool ExecuteNonQuery(string query, object parameters);
-    T? Find<T>(string query, object parameters);
-    IEnumerable<T> List<T>(string query, object? parameters = null);
+    Task<bool> ExecuteNonQuery(string query, object parameters);
+    Task<T?> Find<T>(string query, object parameters);
+    Task<IEnumerable<T>> List<T>(string query, object? parameters = null);
 }

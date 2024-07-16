@@ -2,10 +2,10 @@ namespace Journal.Repository
 {
     public interface IRepository<T>
     {
-        bool Insert(T insertObject);
-        bool Update(T updateObject);
-        bool Delete(int objectId);
-        T? Find(int objecId);
-        IEnumerable<T> List();
+        Task<bool> Insert(T insertObject);
+        Task<bool> Update(T updateObject);
+        Task<bool> Delete(int objectId);
+        Task<T?> Find(int objecId);
+        Task<IEnumerable<T>> List();
     }
 }
