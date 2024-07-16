@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journal.Service", "Journal.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journal.API", "src\Journal.API\Journal.API.csproj", "{90584622-79DB-40B9-822E-91686284A2E4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8BE4E3BE-7294-4F4E-BA61-72F549B2344F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4C8B0399-DCCF-4DAE-83FE-7D43B6496C83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D988BFD-2F2A-4959-84F8-99A0FF4E56CF} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
+		{48DA7A40-FE57-4841-BEF2-FDA365BB450D} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
+		{752CCADA-750F-4279-BBF8-733482EA7695} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
+		{90584622-79DB-40B9-822E-91686284A2E4} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {619141B4-CC98-4F60-B553-E45085480B5D}
