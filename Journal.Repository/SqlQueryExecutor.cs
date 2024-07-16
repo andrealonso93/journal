@@ -7,12 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Journal.Repository;
 
-public class QueryExecutor : IQueryExecutor
+public class SqlQueryExecutor : IQueryExecutor
 {
     protected readonly IDbConnection _connection;
     protected readonly ILogger _logger;
 
-    public QueryExecutor(IConfiguration config, ILogger logger)
+    public SqlQueryExecutor(IConfiguration config, ILogger logger)
     {
         var connectionString = config.GetConnectionString("SQL_Connection");
         _connection = new SqlConnection(connectionString);
@@ -46,7 +46,7 @@ public class QueryExecutor : IQueryExecutor
         }
     }
 
-    public IEnumerable<T> List(string query, object? parameters = null)
+    public IEnumerable<T> List<T>(string query, object? parameters = null)
     {
         try
         {

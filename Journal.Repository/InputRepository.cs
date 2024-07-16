@@ -10,7 +10,7 @@ namespace Journal.Repository;
 /// <summary>
 /// Repository to mange database operations of journal inputs
 /// </summary>
-public class InputRepository : QueryExecutor, IRepository<Input>
+public class InputRepository : SqlQueryExecutor, IRepository<Input>
 {
     public InputRepository(IConfiguration config, ILogger logger) : base(config, logger) { }
 
@@ -27,7 +27,7 @@ public class InputRepository : QueryExecutor, IRepository<Input>
             @Id = objectId
         };
 
-        logger.LogInformation($"Trying to delete Input with ID: {objectId}");
+        _logger.LogInformation($"Trying to delete Input with ID: {objectId}");
         return ExecuteNonQuery(query.ToString(), parameters);
     }
 
@@ -47,7 +47,7 @@ public class InputRepository : QueryExecutor, IRepository<Input>
             @Id = objectId
         };
 
-        logger.LogInformation($"Trying to find Input by ID: {objectId}");
+        _logger.LogInformation($"Trying to find Input by ID: {objectId}");
         return Find<Input>(query.ToString(), parameters);
     }
 
@@ -59,7 +59,7 @@ public class InputRepository : QueryExecutor, IRepository<Input>
             DELETE FROM INPUTS WHERE ID = @Id
         ");
 
-        logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
+        _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
         return ExecuteNonQuery(query.ToString(), insertObject);
     }
 
@@ -73,7 +73,7 @@ public class InputRepository : QueryExecutor, IRepository<Input>
                 INPUTS
         ");
 
-        logger.LogInformation($"Trying to list all Inputs");
+        _logger.LogInformation($"Trying to list all Inputs");
         return List<Input>(query.ToString());
     }
 
@@ -88,7 +88,7 @@ public class InputRepository : QueryExecutor, IRepository<Input>
             WHERE ID = @Id
         ");
 
-        logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(updateObject)}");
+        _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(updateObject)}");
         return ExecuteNonQuery(query.ToString(), updateObject);
     }
 }
