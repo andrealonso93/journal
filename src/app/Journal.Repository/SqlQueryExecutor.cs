@@ -10,21 +10,21 @@ namespace Journal.Repository;
 public class SqlQueryExecutor : IQueryExecutor
 {
     protected readonly IDbConnection _connection;
-    protected readonly ILogger _logger;
+    protected readonly ILogger<SqlQueryExecutor> _logger;
 
-    public SqlQueryExecutor(IConfiguration config, ILogger logger)
+    public SqlQueryExecutor(IConfiguration config, ILogger<SqlQueryExecutor> logger)
     {
-        var connectionString = config.GetConnectionString("SQL_Connection");
+        var connectionString = config.GetConnectionString("journal");
         _connection = new SqlConnection(connectionString);
         _logger = logger;
     }
 
-    public bool ExecuteNonQuery(string query, object parameters)
+    public async Task<bool> ExecuteNonQuery(string query, object parameters)
     {
         try
         {
-            _connection.Execute(query, parameters);
-            return true;
+            var executionResponse = await _connection.ExecuteAsync(query, parameters);
+            return executionResponse > 0;
         }
         catch (DbException dbException)
         {
@@ -33,11 +33,12 @@ public class SqlQueryExecutor : IQueryExecutor
         }
     }
 
-    public T? Find<T>(string query, object parameters)
+    public async Task<T?> Find<T>(string query, object parameters)
     {
         try
         {
-            return _connection.Query<T>(query, parameters).FirstOrDefault();
+            var objects = await _connection.QueryAsync<T>(query, parameters);
+            return objects.FirstOrDefault();
         }
         catch (DbException dbException)
         {
@@ -46,11 +47,11 @@ public class SqlQueryExecutor : IQueryExecutor
         }
     }
 
-    public IEnumerable<T> List<T>(string query, object? parameters = null)
+    public async Task<IEnumerable<T>> List<T>(string query, object? parameters = null)
     {
         try
         {
-            return _connection.Query<T>(query, parameters);
+            return await _connection.QueryAsync<T>(query, parameters);
         }
         catch (DbException dbException)
         {
