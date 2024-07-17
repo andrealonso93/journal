@@ -70,7 +70,7 @@ public class InputRepository : IRepository<Input>
             return addedObject.Entity;
         }
 
-        return default;
+        return null;
     }
 
     public async Task<IEnumerable<Input>> List()
