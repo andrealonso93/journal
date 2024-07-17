@@ -22,5 +22,11 @@ namespace Journal.API.Controllers
         {
             return await _inputService.GetAllInputs();
         }
+
+        [HttpPost(Name = "CreateInput")]
+        public async Task<Input?> CreateInputs(string entryText)
+        {
+            return await _inputService.CreateInput(entryText);
+        }
     }
 }

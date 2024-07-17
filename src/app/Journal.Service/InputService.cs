@@ -14,6 +14,17 @@ public class InputService : IInputService
         _logger = logger;
     }
 
+    public async Task<Input?> CreateInput(string entryText)
+    {
+        _logger.LogInformation("Trying to create new input");
+        var input = Input.BuildNewInput(entryText);
+        var newInputId = await _inputRepository.Insert(input);
+        if (newInputId > 0)
+            return await _inputRepository.Find(newInputId);
+
+        return null;
+    }
+
     public async Task<IEnumerable<Input>> GetAllInputs()
     {
         _logger.LogInformation("Trying to get all inputs");
