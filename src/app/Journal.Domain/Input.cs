@@ -5,13 +5,12 @@
 /// </summary>
 public class Input
 {
-    public Input() { }
 
     /// <summary>
-    /// Journal input constructor
+    /// New journal builder
     /// </summary>
-    /// <param name="inputText">Text input of the journal</param>
-    public Input BuildNewInput(string inputText)
+    /// <param name="inputText">Text input of the journal entry</param>
+    public static Input BuildNewInput(string inputText)
     {
         return new Input
         {
