@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journal.Service", "app\Jour
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{ACEA2018-5387-4A52-AC35-AE093D6E60A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journal.Database", "app\Journal.Database\Journal.Database.csproj", "{3AD4B537-FCEF-4D62-99B5-0E37943B899A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journal.Database", "app\Journal.Database\Journal.Database.csproj", "{3AD4B537-FCEF-4D62-99B5-0E37943B899A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F363706-7D9A-4D8D-8B5D-569017E4DF0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journal.Repository.Tests", "tests\Journal.Repository.Tests\Journal.Repository.Tests.csproj", "{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Journal.Repository.Tests", "tests\Journal.Repository.Tests\Journal.Repository.Tests.csproj", "{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journal.Notification", "app\Journal.Notification\Journal.Notification.csproj", "{5F8089E5-0C63-4B12-826D-D03082B786BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F8089E5-0C63-4B12-826D-D03082B786BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F8089E5-0C63-4B12-826D-D03082B786BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F8089E5-0C63-4B12-826D-D03082B786BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F8089E5-0C63-4B12-826D-D03082B786BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{EF8DC2B5-27A2-4208-9E86-AFE4ED5C59D9} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
 		{3AD4B537-FCEF-4D62-99B5-0E37943B899A} = {ACEA2018-5387-4A52-AC35-AE093D6E60A9}
 		{F56EEF0F-064E-4B7D-A04B-4586CB48A1D6} = {4F363706-7D9A-4D8D-8B5D-569017E4DF0A}
+		{5F8089E5-0C63-4B12-826D-D03082B786BF} = {8BE4E3BE-7294-4F4E-BA61-72F549B2344F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {619141B4-CC98-4F60-B553-E45085480B5D}
