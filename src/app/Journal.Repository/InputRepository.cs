@@ -59,7 +59,7 @@ public class InputRepository : IRepository<Input>
         return await _queryExecutor.Find<Input>(query.ToString(), parameters);
     }
 
-    public async Task<Input> Insert(Input insertObject)
+    public async Task<Input?> Insert(Input insertObject)
     {
         _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
         var addedObject = await _inputDbContext.Inputs.AddAsync(insertObject);
@@ -70,7 +70,7 @@ public class InputRepository : IRepository<Input>
             return addedObject.Entity;
         }
 
-        return null;
+        return default;
     }
 
     public async Task<IEnumerable<Input>> List()
