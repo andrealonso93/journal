@@ -1,4 +1,6 @@
-﻿namespace Journal.Domain;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Journal.Domain;
 
 /// <summary>
 /// Represents a journal input object to be stored
@@ -22,5 +24,7 @@ public class Input
     public int Id { get; set; }
     public DateTime InsertionDateTime { get; set; }
     public DateTime? UdateDateTime { get; set; }
+
+    [MaxLength(500)]
     public string InputText { get; set; } = string.Empty;
 }
