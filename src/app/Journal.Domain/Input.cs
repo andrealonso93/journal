@@ -22,5 +22,5 @@ public class Input
     public int Id { get; set; }
     public DateTime InsertionDateTime { get; set; }
     public DateTime? UdateDateTime { get; set; }
-    public string InputText { get; set; }
+    public string InputText { get; set; } = string.Empty;
 }
