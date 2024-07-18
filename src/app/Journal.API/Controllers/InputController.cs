@@ -24,7 +24,7 @@ namespace Journal.API.Controllers
         }
 
         [HttpPost(Name = "CreateInput")]
-        public async Task<Input?> CreateInputs(string entryText)
+        public async Task<Input?> CreateInputs([FromBody]string entryText)
         {
             return await _inputService.CreateInput(entryText);
         }
