@@ -19,17 +19,30 @@ public class SqlQueryExecutor : IQueryExecutor
         _logger = logger;
     }
 
-    public async Task<bool> ExecuteNonQuery(string query, object parameters)
+    public async Task<bool> ExecuteNonQuery(string script, object parameters)
     {
         try
         {
-            var executionResponse = await _connection.ExecuteAsync(query, parameters);
+            var executionResponse = await _connection.ExecuteAsync(script, parameters);
             return executionResponse > 0;
         }
         catch (DbException dbException)
         {
-            _logger.LogError(dbException, "Error executing non query db script: {Query}", query);
+            _logger.LogError(dbException, "Error executing non query db script: {Query}", script);
             return false;
+        }
+    }
+
+    public async Task<IEnumerable<T>> ExecuteQuery<T>(string query, object parameters)
+    {
+        try
+        {
+            return await _connection.QueryAsync<T>(query, parameters);
+        }
+        catch (DbException dbException)
+        {
+            _logger.LogError(dbException, "Error executing non query db script: {Query}", query);
+            return Enumerable.Empty<T>();
         }
     }
 

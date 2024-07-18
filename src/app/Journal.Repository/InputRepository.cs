@@ -63,7 +63,7 @@ public class InputRepository : IRepository<Input>
     {
         _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
         var addedObject = await _inputDbContext.Inputs.AddAsync(insertObject);
-        
+
         if (addedObject.State == Microsoft.EntityFrameworkCore.EntityState.Added)
         {
             await _inputDbContext.SaveChangesAsync();
