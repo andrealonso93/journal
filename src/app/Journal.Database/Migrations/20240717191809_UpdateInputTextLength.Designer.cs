@@ -4,6 +4,7 @@ using Journal.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Journal.Database.Migrations
 {
     [DbContext(typeof(InputContext))]
-    partial class InputContextModelSnapshot : ModelSnapshot
+    [Migration("20240717191809_UpdateInputTextLength")]
+    partial class UpdateInputTextLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +41,7 @@ namespace Journal.Database.Migrations
                     b.Property<DateTime>("InsertionDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UpdateDateTime")
+                    b.Property<DateTime?>("UdateDateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

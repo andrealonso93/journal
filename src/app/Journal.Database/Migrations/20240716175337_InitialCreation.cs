@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -19,7 +18,7 @@ namespace Journal.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InsertionDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UdateDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    InputText = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    InputText = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {

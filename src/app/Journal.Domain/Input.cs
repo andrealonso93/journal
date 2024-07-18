@@ -1,17 +1,18 @@
-﻿namespace Journal.Domain;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Journal.Domain;
 
 /// <summary>
 /// Represents a journal input object to be stored
 /// </summary>
 public class Input
 {
-    public Input() { }
 
     /// <summary>
-    /// Journal input constructor
+    /// New journal builder
     /// </summary>
-    /// <param name="inputText">Text input of the journal</param>
-    public Input BuildNewInput(string inputText)
+    /// <param name="inputText">Text input of the journal entry</param>
+    public static Input BuildNewInput(string inputText)
     {
         return new Input
         {
@@ -22,6 +23,8 @@ public class Input
 
     public int Id { get; set; }
     public DateTime InsertionDateTime { get; set; }
-    public DateTime? UdateDateTime { get; set; }
-    public string InputText { get; set; }
+    public DateTime? UpdateDateTime { get; set; }
+
+    [MaxLength(500)]
+    public string InputText { get; set; } = string.Empty;
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Journal.Database;
 using Journal.Domain;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -11,12 +12,14 @@ namespace Journal.Repository;
 public class InputRepository : IRepository<Input>
 {
     private readonly IQueryExecutor _queryExecutor;
+    private readonly InputContext _inputDbContext;
     private readonly ILogger<InputRepository> _logger;
 
-    public InputRepository(IQueryExecutor queryExecutor, ILogger<InputRepository> logger)
+    public InputRepository(IQueryExecutor queryExecutor, ILogger<InputRepository> logger, InputContext inputDbContext)
     {
         _queryExecutor = queryExecutor;
         _logger = logger;
+        _inputDbContext = inputDbContext;
     }
 
     public async Task<bool> Delete(int objectId)
@@ -56,16 +59,18 @@ public class InputRepository : IRepository<Input>
         return await _queryExecutor.Find<Input>(query.ToString(), parameters);
     }
 
-    public async Task<bool> Insert(Input insertObject)
+    public async Task<Input?> Insert(Input insertObject)
     {
-        var query = new StringBuilder();
-
-        query.AppendLine(@"
-            DELETE FROM INPUTS WHERE ID = @Id
-        ");
-
         _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
-        return await _queryExecutor.ExecuteNonQuery(query.ToString(), insertObject);
+        var addedObject = await _inputDbContext.Inputs.AddAsync(insertObject);
+
+        if (addedObject.State == Microsoft.EntityFrameworkCore.EntityState.Added)
+        {
+            await _inputDbContext.SaveChangesAsync();
+            return addedObject.Entity;
+        }
+
+        return null;
     }
 
     public async Task<IEnumerable<Input>> List()

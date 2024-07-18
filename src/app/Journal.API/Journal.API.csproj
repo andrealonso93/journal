@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Journal.Database\Journal.Database.csproj" />
+    <ProjectReference Include="..\Journal.Notification\Journal.Notification.csproj" />
     <ProjectReference Include="..\Journal.Repository\Journal.Repository.csproj" />
     <ProjectReference Include="..\Journal.Service\Journal.Service.csproj" />
   </ItemGroup>
