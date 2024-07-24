@@ -1,4 +1,4 @@
-using Journal.API;
+using Journal.API.Filters;
 using Journal.Database;
 using Journal.Domain;
 using Journal.Notification;
@@ -19,7 +19,12 @@ builder.Services.AddLogging(config =>
 // Add services to the container.
 
 builder.Services.AddSingleton<NotificationContext>();
-builder.Services.AddControllers(opt => opt.Filters.Add<NotificationFilter>());
+builder.Services.AddControllers(opt =>
+{
+    opt.Filters.Add<NotificationFilter>();
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

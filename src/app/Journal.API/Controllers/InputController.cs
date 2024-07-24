@@ -9,24 +9,46 @@ namespace Journal.API.Controllers
     public class InputController : ControllerBase
     {
         private readonly IInputService _inputService;
-        private readonly ILogger<InputController> _logger;
 
-        public InputController(IInputService inputService, ILogger<InputController> logger)
+        public InputController(IInputService inputService)
         {
             _inputService = inputService;
-            _logger = logger;
         }
 
-        [HttpGet(Name = "GetInputs")]
-        public async Task<IEnumerable<Input>> GetInputsAsync()
+        [HttpGet]
+        public async Task<IActionResult> GetInputsAsync()
         {
-            return await _inputService.GetAllInputs();
+            var inputs = await _inputService.GetAllInputsAsync();
+            return TreatResponse(inputs);
         }
 
-        [HttpPost(Name = "CreateInput")]
-        public async Task<Input?> CreateInputs([FromBody]string entryText)
+        [HttpPost]
+        public async Task<IActionResult> CreateInput([FromBody] string entryText)
         {
-            return await _inputService.CreateInput(entryText);
+            var createdInput = await _inputService.CreateInputAsync(entryText);
+            return TreatResponse(createdInput);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateInput(int id, [FromBody] string newEntry)
+        {
+            var updatedInput = await _inputService.UpdateInputAsync(id, newEntry);
+            return TreatResponse(updatedInput);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetInput(int id)
+        {
+            var input = await _inputService.GetInputAsync(id);
+            return TreatResponse(input);
+        }
+
+        private IActionResult TreatResponse(object? responseObject)
+        {
+            if (responseObject is null)
+                return NotFound();
+
+            return Ok(responseObject);
         }
     }
 }

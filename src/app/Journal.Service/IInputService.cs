@@ -4,7 +4,9 @@ namespace Journal.Service
 {
     public interface IInputService
     {
-        Task<IEnumerable<Input>> GetAllInputs();
-        Task<Input?> CreateInput(string entryText);
+        Task<Input?> GetInputAsync(int id);
+        Task<IEnumerable<Input>> GetAllInputsAsync();
+        Task<Input?> CreateInputAsync(string entryText);
+        Task<Input?> UpdateInputAsync(int id, string entryText);
     }
 }

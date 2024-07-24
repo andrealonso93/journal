@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text.Json;
 
-namespace Journal.API
+namespace Journal.API.Filters
 {
     public class NotificationFilter(NotificationContext _notificationContext, ILogger<NotificationFilter> _logger) : IActionFilter
     {
