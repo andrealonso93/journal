@@ -3,9 +3,9 @@ namespace Journal.Repository
     public interface IRepository<T>
     {
         Task<T?> Insert(T insertObject);
-        Task<bool> Update(T updateObject);
+        Task<T> Update(T updateObject);
         Task<bool> Delete(int objectId);
-        Task<T?> Find(int objecId);
+        Task<T?> Find(int objectId);
         Task<IEnumerable<T>> List();
     }
 }

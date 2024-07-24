@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Journal.Database;
 using Journal.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -35,7 +36,7 @@ public class InputRepository : IRepository<Input>
             @Id = objectId
         };
 
-        _logger.LogInformation($"Trying to delete Input with ID: {objectId}");
+        _logger.LogInformation("Trying to delete Input with ID: {ObjectId}", objectId);
         return await _queryExecutor.ExecuteNonQuery(query.ToString(), parameters);
     }
 
@@ -55,16 +56,16 @@ public class InputRepository : IRepository<Input>
             @Id = objectId
         };
 
-        _logger.LogInformation($"Trying to find Input by ID: {objectId}");
+        _logger.LogInformation("Trying to find Input by ID: {ObjectId}", objectId);
         return await _queryExecutor.Find<Input>(query.ToString(), parameters);
     }
 
     public async Task<Input?> Insert(Input insertObject)
     {
-        _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(insertObject)}");
+        _logger.LogInformation("Trying to insert new Input. {JsonObject}", JsonConvert.SerializeObject(insertObject));
         var addedObject = await _inputDbContext.Inputs.AddAsync(insertObject);
 
-        if (addedObject.State == Microsoft.EntityFrameworkCore.EntityState.Added)
+        if (addedObject.State == EntityState.Added)
         {
             await _inputDbContext.SaveChangesAsync();
             return addedObject.Entity;
@@ -87,18 +88,17 @@ public class InputRepository : IRepository<Input>
         return await _queryExecutor.List<Input>(query.ToString());
     }
 
-    public async Task<bool> Update(Input updateObject)
+    public async Task<Input> Update(Input updateObject)
     {
-        var query = new StringBuilder();
+        _logger.LogInformation("Trying to update Input with id: {Id}", updateObject.Id);
+        var updatedOject = _inputDbContext.Inputs.Update(updateObject);
 
-        query.AppendLine(@"
-            UDATE INPUTS SET
-                InputText = @InputText,
-                UpdateDateTime = @UpdateDateTime
-            WHERE ID = @Id
-        ");
+        if (updatedOject.State == EntityState.Modified)
+        {
+            await _inputDbContext.SaveChangesAsync();
+            return updatedOject.Entity;
+        }
 
-        _logger.LogInformation($"Trying to insert new Input. {JsonConvert.SerializeObject(updateObject)}");
-        return await _queryExecutor.ExecuteNonQuery(query.ToString(), updateObject);
+        return updateObject;
     }
 }
