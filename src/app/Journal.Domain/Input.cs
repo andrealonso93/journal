@@ -27,4 +27,6 @@ public class Input
 
     [MaxLength(500)]
     public string InputText { get; set; } = string.Empty;
+    public int UserId { get; set; }
+    public User User { get; set; } = new();
 }

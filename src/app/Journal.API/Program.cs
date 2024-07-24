@@ -29,7 +29,7 @@ builder.Services.AddControllers(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<InputContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
+builder.Services.AddDbContext<JournalContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
 
 builder.Services.AddScoped<IQueryExecutor, SqlQueryExecutor>();
 builder.Services.AddScoped<IRepository<Input>, InputRepository>();

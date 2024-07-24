@@ -13,14 +13,14 @@ namespace Journal.Repository;
 public class InputRepository : IRepository<Input>
 {
     private readonly IQueryExecutor _queryExecutor;
-    private readonly InputContext _inputDbContext;
+    private readonly JournalContext _journalDbContext;
     private readonly ILogger<InputRepository> _logger;
 
-    public InputRepository(IQueryExecutor queryExecutor, ILogger<InputRepository> logger, InputContext inputDbContext)
+    public InputRepository(IQueryExecutor queryExecutor, ILogger<InputRepository> logger, JournalContext journalDbContext)
     {
         _queryExecutor = queryExecutor;
         _logger = logger;
-        _inputDbContext = inputDbContext;
+        _journalDbContext = journalDbContext;
     }
 
     public async Task<bool> Delete(int objectId)
@@ -63,11 +63,11 @@ public class InputRepository : IRepository<Input>
     public async Task<Input?> Insert(Input insertObject)
     {
         _logger.LogInformation("Trying to insert new Input. {JsonObject}", JsonConvert.SerializeObject(insertObject));
-        var addedObject = await _inputDbContext.Inputs.AddAsync(insertObject);
+        var addedObject = await _journalDbContext.Inputs.AddAsync(insertObject);
 
         if (addedObject.State == EntityState.Added)
         {
-            await _inputDbContext.SaveChangesAsync();
+            await _journalDbContext.SaveChangesAsync();
             return addedObject.Entity;
         }
 
@@ -91,11 +91,11 @@ public class InputRepository : IRepository<Input>
     public async Task<Input> Update(Input updateObject)
     {
         _logger.LogInformation("Trying to update Input with id: {Id}", updateObject.Id);
-        var updatedOject = _inputDbContext.Inputs.Update(updateObject);
+        var updatedOject = _journalDbContext.Inputs.Update(updateObject);
 
         if (updatedOject.State == EntityState.Modified)
         {
-            await _inputDbContext.SaveChangesAsync();
+            await _journalDbContext.SaveChangesAsync();
             return updatedOject.Entity;
         }
 
