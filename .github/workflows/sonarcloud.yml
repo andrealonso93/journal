@@ -28,4 +28,4 @@ jobs:
             -Dsonar.projectKey=journal
             -Dsonar.organization=andrealonso93
           
-          projectBaseDir: ../src/
+          projectBaseDir: ./src/
