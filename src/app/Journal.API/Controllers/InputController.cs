@@ -5,7 +5,7 @@ namespace Journal.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InputController : ControllerBase
+    public class InputController : CustomBaseController
     {
         private readonly IInputService _inputService;
 
@@ -40,14 +40,6 @@ namespace Journal.API.Controllers
         {
             var input = await _inputService.GetInputAsync(id);
             return TreatResponse(input);
-        }
-
-        private IActionResult TreatResponse(object? responseObject)
-        {
-            if (responseObject is null)
-                return NotFound();
-
-            return Ok(responseObject);
         }
     }
 }

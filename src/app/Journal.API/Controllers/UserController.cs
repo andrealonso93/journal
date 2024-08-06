@@ -5,7 +5,7 @@ namespace Journal.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : CustomBaseController
     {
         public UserController() { }
 
@@ -39,3 +39,4 @@ namespace Journal.API.Controllers
             return Ok($"Delete User {id}");
         }
     }
+}
