@@ -1,5 +1,7 @@
 using Journal.Database;
 using Journal.Domain;
+using Journal.Repository.Implementations;
+using Journal.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

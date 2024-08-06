@@ -1,6 +1,6 @@
 using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository;
+using Journal.Repository.Implementations;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 

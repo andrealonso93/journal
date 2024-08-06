@@ -2,7 +2,8 @@ using Journal.API.Filters;
 using Journal.Database;
 using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository;
+using Journal.Repository.Implementations;
+using Journal.Repository.Interfaces;
 using Journal.Service;
 using Microsoft.EntityFrameworkCore;
 

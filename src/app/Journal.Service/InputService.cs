@@ -1,6 +1,6 @@
 ﻿using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository;
+using Journal.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Journal.Service;

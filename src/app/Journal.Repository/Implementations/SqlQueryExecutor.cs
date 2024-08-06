@@ -1,11 +1,12 @@
+using Dapper;
+using Journal.Repository.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using Dapper;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
-namespace Journal.Repository;
+namespace Journal.Repository.Implementations;
 
 public class SqlQueryExecutor : IQueryExecutor
 {

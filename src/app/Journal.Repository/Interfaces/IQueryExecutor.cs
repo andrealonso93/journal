@@ -1,4 +1,4 @@
-﻿namespace Journal.Repository;
+﻿namespace Journal.Repository.Interfaces;
 
 public interface IQueryExecutor
 {

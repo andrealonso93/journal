@@ -1,11 +1,12 @@
-﻿using System.Text;
-using Journal.Database;
+﻿using Journal.Database;
 using Journal.Domain;
+using Journal.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Text;
 
-namespace Journal.Repository;
+namespace Journal.Repository.Implementations;
 
 /// <summary>
 /// Repository to mange database operations of journal inputs
@@ -23,22 +24,7 @@ public class InputRepository : IRepository<Input>
         _journalDbContext = journalDbContext;
     }
 
-    public async Task<bool> Delete(int objectId)
-    {
-        var query = new StringBuilder();
-
-        query.AppendLine(@"
-            DELETE FROM INPUTS WHERE ID = @Id
-        ");
-
-        var parameters = new
-        {
-            @Id = objectId
-        };
-
-        _logger.LogInformation("Trying to delete Input with ID: {ObjectId}", objectId);
-        return await _queryExecutor.ExecuteNonQuery(query.ToString(), parameters);
-    }
+    #region Read Operations
 
     public async Task<Input?> Find(int objectId)
     {
@@ -60,20 +46,6 @@ public class InputRepository : IRepository<Input>
         return await _queryExecutor.Find<Input>(query.ToString(), parameters);
     }
 
-    public async Task<Input?> Insert(Input insertObject)
-    {
-        _logger.LogInformation("Trying to insert new Input. {JsonObject}", JsonConvert.SerializeObject(insertObject));
-        var addedObject = await _journalDbContext.Inputs.AddAsync(insertObject);
-
-        if (addedObject.State == EntityState.Added)
-        {
-            await _journalDbContext.SaveChangesAsync();
-            return addedObject.Entity;
-        }
-
-        return null;
-    }
-
     public async Task<IEnumerable<Input>> List()
     {
         var query = new StringBuilder();
@@ -86,6 +58,39 @@ public class InputRepository : IRepository<Input>
 
         _logger.LogInformation($"Trying to list all Inputs");
         return await _queryExecutor.List<Input>(query.ToString());
+    }
+
+    #endregion
+
+    #region Write Operations
+    public async Task<bool> Delete(int objectId)
+    {
+        _logger.LogInformation("Trying to delete Input with ID: {ObjectId}", objectId);
+        try
+        {
+            _journalDbContext.Inputs.Remove(new Input { Id = objectId });
+            await _journalDbContext.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            _logger.LogError("Error deleting Input with ID: {ObjectId}", objectId);
+            return false;
+        }
+    }
+
+    public async Task<Input?> Insert(Input insertObject)
+    {
+        _logger.LogInformation("Trying to insert new Input. {JsonObject}", JsonConvert.SerializeObject(insertObject));
+        var addedObject = await _journalDbContext.Inputs.AddAsync(insertObject);
+
+        if (addedObject.State == EntityState.Added)
+        {
+            await _journalDbContext.SaveChangesAsync();
+            return addedObject.Entity;
+        }
+
+        return null;
     }
 
     public async Task<Input> Update(Input updateObject)
@@ -101,4 +106,6 @@ public class InputRepository : IRepository<Input>
 
         return updateObject;
     }
+
+    #endregion
 }
