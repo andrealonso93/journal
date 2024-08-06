@@ -4,6 +4,6 @@ namespace Journal.Repository.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        User FindByEmail(string email);
+        Task<User?> FindByEmail(string email);
     }
 }

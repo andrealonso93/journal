@@ -1,4 +1,5 @@
 ﻿using Journal.Domain.Models;
+using Journal.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Journal.API.Controllers
@@ -7,7 +8,11 @@ namespace Journal.API.Controllers
     [Route("[controller]")]
     public class UserController : CustomBaseController
     {
-        public UserController() { }
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()

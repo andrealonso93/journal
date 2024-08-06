@@ -1,6 +1,7 @@
 using Journal.API.Filters;
 using Journal.Database;
 using Journal.Domain.Models;
+using Journal.Domain.Services;
 using Journal.Notification;
 using Journal.Repository.Implementations;
 using Journal.Repository.Interfaces;
@@ -30,14 +31,15 @@ builder.Services.AddControllers(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// My Custom Injections
 builder.Services.AddDbContext<JournalContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
 
 builder.Services.AddScoped<IQueryExecutor, SqlQueryExecutor>();
 builder.Services.AddScoped<IRepository<Input>, InputRepository>();
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
 
-
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IInputService, InputService>();
-
 
 
 var app = builder.Build();

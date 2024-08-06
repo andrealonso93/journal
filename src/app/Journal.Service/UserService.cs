@@ -1,7 +1,7 @@
 ﻿using Journal.Domain.Models;
 using Journal.Domain.Services;
 
-internal class UserService : IUserService
+public class UserService : IUserService
 {
     public Task<User?> CreateUserAsync(User user)
     {
