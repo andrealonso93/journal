@@ -27,4 +27,4 @@ jobs:
             # mandatory
             -Dsonar.projectKey=andrealonso93_journal
             -Dsonar.organization=andrealonso93
-          projectBaseDir: .
+          projectBaseDir: ./src/
