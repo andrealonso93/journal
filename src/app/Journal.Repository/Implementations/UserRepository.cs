@@ -7,15 +7,17 @@ using Newtonsoft.Json;
 
 namespace Journal.Repository.Implementations
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
+        private readonly IQueryExecutor _queryExecutor;
         private readonly JournalContext _journalDbContext;
         private readonly ILogger<UserRepository> _logger;
 
-        public UserRepository(JournalContext journalContext, ILogger<UserRepository> logger)
+        public UserRepository(JournalContext journalContext, ILogger<UserRepository> logger, IQueryExecutor queryExecutor)
         {
             _journalDbContext = journalContext;
             _logger = logger;
+            _queryExecutor = queryExecutor;
         }
 
 
@@ -66,21 +68,28 @@ namespace Journal.Repository.Implementations
 
         #region Read Operations
 
-        public Task<User?> Find(int objectId)
+        public async Task<User?> Find(int objectId)
         {
-            throw new NotImplementedException();
+            var sql = @"SELECT * FROM Users WHERE Id = @objectId";
+
+            _logger.LogInformation("Trying to find user with id = {ObjectId}", objectId);
+            return await _queryExecutor.Find<User>(sql, new { objectId });
         }
 
-        public User FindByEmail(string email)
+        public async Task<User?> FindByEmail(string email)
         {
-            throw new NotImplementedException();
+            var sql = @"SELECT TOP 1 * FROM Users WHERE Email = @email";
+
+            _logger.LogInformation("Trying to find user with email = {Email}", email);
+            return await _queryExecutor.Find<User>(sql, new { email });
         }
 
-
-
-        public Task<IEnumerable<User>> List()
+        public async Task<IEnumerable<User>> List()
         {
-            throw new NotImplementedException();
+            var sql = @"SELECT * FROM Users";
+
+            _logger.LogInformation("Trying to list all users");
+            return await _queryExecutor.List<User>(sql);
         }
 
         #endregion
