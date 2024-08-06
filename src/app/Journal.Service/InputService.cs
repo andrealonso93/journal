@@ -92,4 +92,17 @@ public class InputService : IInputService
 
         return retrievedInput;
     }
+
+    public async Task<bool> DeleteInputAsync(int id)
+    {
+        if (id <= 0)
+        {
+            _logger.LogError("Input id must be greater than zero");
+            _notificationContext.AddNotification(400, "Input id must be greater than zero");
+            return false;
+        }
+
+        var deleted = await _inputRepository.Delete(id);
+        return deleted;
+    }
 }

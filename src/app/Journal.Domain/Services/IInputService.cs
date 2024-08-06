@@ -8,5 +8,6 @@ namespace Journal.Service
         Task<IEnumerable<Input>> GetAllInputsAsync();
         Task<Input?> CreateInputAsync(string entryText);
         Task<Input?> UpdateInputAsync(int id, string entryText);
+        Task<bool> DeleteInputAsync(int id);
     }
 }
