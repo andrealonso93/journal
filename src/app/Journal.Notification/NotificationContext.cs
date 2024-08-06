@@ -6,11 +6,11 @@ namespace Journal.Notification
     {
         private readonly List<Notification> _notifications;
         public IReadOnlyCollection<Notification> Notifications => _notifications;
-        public bool HasNotifications => _notifications.Any();
+        public bool HasNotifications => _notifications.Count > 0;
 
         public NotificationContext()
         {
-           _notifications = new List<Notification>();
+            _notifications = new List<Notification>();
         }
 
         public void AddNotification(HttpStatusCode httpStatusCode, string message)
@@ -20,7 +20,7 @@ namespace Journal.Notification
 
         public void AddNotification(int statusCode, string message)
         {
-            if(!Enum.TryParse<HttpStatusCode>(statusCode.ToString(), out var httpStatusCode))
+            if (!Enum.TryParse<HttpStatusCode>(statusCode.ToString(), out var httpStatusCode))
                 httpStatusCode = HttpStatusCode.InternalServerError;
 
             _notifications.Add(new Notification { HttpStatusCode = httpStatusCode, Message = message });

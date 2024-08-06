@@ -72,9 +72,10 @@ public class InputRepository : IRepository<Input>
             await _journalDbContext.SaveChangesAsync();
             return true;
         }
-        catch
+        catch (Exception ex)
         {
             _logger.LogError("Error deleting Input with ID: {ObjectId}", objectId);
+            _logger.LogError(ex, "Exception:");
             return false;
         }
     }
