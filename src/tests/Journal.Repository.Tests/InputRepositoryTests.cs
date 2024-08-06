@@ -1,5 +1,7 @@
 using Journal.Database;
 using Journal.Domain;
+using Journal.Repository.Implementations;
+using Journal.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
@@ -10,17 +12,17 @@ public class InputRepositoryTests
 {
     private readonly IRepository<Input> _inputRepository;
     private readonly IQueryExecutor _queryExecutorSubstitute;
-    private readonly InputContext _inputContext;
+    private readonly JournalContext _JournalContext;
 
     public InputRepositoryTests()
     {
         _queryExecutorSubstitute = Substitute.For<IQueryExecutor>();
-        _inputContext = new InputContext(new DbContextOptionsBuilder<InputContext>().UseInMemoryDatabase("Journal").Options);
+        _JournalContext = new JournalContext(new DbContextOptionsBuilder<JournalContext>().UseInMemoryDatabase("Journal").Options);
         _inputRepository =
             new InputRepository(
                 _queryExecutorSubstitute,
                 Substitute.For<ILogger<InputRepository>>(),
-                _inputContext);
+                _JournalContext);
     }
 
 

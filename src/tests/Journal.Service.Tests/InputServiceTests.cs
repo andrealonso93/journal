@@ -1,6 +1,6 @@
 using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository;
+using Journal.Repository.Implementations;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
@@ -24,13 +24,13 @@ namespace Journal.Service.Tests
             _inputRepository.Find(1).Returns(existingInput);
             var updatedInput = existingInput;
             updatedInput.InputText = "Updated Test";
-            
+
             // Act
-            var response = await _inputRepository.Update(updateInput);
+            var response = await _inputRepository.Update(updatedInput);
 
             // Assert
             Assert.NotNull(response);
-            Assert.Equal(response.InputText, updateInput.InputText);
+            Assert.Equal(response.InputText, updatedInput.InputText);
         }
 
         [Fact]

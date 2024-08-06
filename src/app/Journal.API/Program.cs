@@ -2,7 +2,8 @@ using Journal.API.Filters;
 using Journal.Database;
 using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository;
+using Journal.Repository.Implementations;
+using Journal.Repository.Interfaces;
 using Journal.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +30,7 @@ builder.Services.AddControllers(opt =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<InputContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
+builder.Services.AddDbContext<JournalContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("journal")));
 
 builder.Services.AddScoped<IQueryExecutor, SqlQueryExecutor>();
 builder.Services.AddScoped<IRepository<Input>, InputRepository>();
