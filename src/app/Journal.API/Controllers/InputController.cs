@@ -1,4 +1,3 @@
-using Journal.Domain;
 using Journal.Service;
 using Microsoft.AspNetCore.Mvc;
 
