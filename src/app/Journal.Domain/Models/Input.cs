@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Journal.Domain;
+namespace Journal.Domain.Models;
 
 /// <summary>
 /// Represents a journal input object to be stored

@@ -1,4 +1,4 @@
-﻿using Journal.Domain;
+﻿using Journal.Domain.Models;
 using Journal.Notification;
 using Journal.Repository.Interfaces;
 using Microsoft.Extensions.Logging;

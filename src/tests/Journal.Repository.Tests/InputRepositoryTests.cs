@@ -1,5 +1,5 @@
 using Journal.Database;
-using Journal.Domain;
+using Journal.Domain.Models;
 using Journal.Repository.Implementations;
 using Journal.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;

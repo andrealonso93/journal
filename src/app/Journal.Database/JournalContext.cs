@@ -1,4 +1,4 @@
-﻿using Journal.Domain;
+﻿using Journal.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Journal.Database

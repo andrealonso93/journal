@@ -1,6 +1,6 @@
 using Journal.API.Filters;
 using Journal.Database;
-using Journal.Domain;
+using Journal.Domain.Models;
 using Journal.Notification;
 using Journal.Repository.Implementations;
 using Journal.Repository.Interfaces;
