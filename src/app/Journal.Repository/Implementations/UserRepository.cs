@@ -9,13 +9,11 @@ namespace Journal.Repository.Implementations
 {
     internal class UserRepository : IUserRepository
     {
-        private readonly IQueryExecutor _queryExecutor;
         private readonly JournalContext _journalDbContext;
         private readonly ILogger<UserRepository> _logger;
 
-        public UserRepository(IQueryExecutor queryExecutor, JournalContext journalContext, ILogger<UserRepository> logger)
+        public UserRepository(JournalContext journalContext, ILogger<UserRepository> logger)
         {
-            _queryExecutor = queryExecutor;
             _journalDbContext = journalContext;
             _logger = logger;
         }
@@ -28,17 +26,19 @@ namespace Journal.Repository.Implementations
             var userInputs = _journalDbContext.Inputs.Where(i => i.UserId == objectId);
             try
             {
-                if (userInputs.Any())
+                if (await userInputs.AnyAsync())
                     _journalDbContext.Inputs.RemoveRange(userInputs);
 
                 _journalDbContext.Users.Remove(new User { Id = objectId });
+
                 await _journalDbContext.SaveChangesAsync();
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 _logger.LogError("Unable to delete user with id {ObjectId}", objectId);
+                _logger.LogError(ex, "Exception: ");
                 return false;
             }
         }
