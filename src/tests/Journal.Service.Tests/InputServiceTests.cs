@@ -1,6 +1,6 @@
 using Journal.Domain;
 using Journal.Notification;
-using Journal.Repository.Implementations;
+using Journal.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
@@ -9,7 +9,7 @@ namespace Journal.Service.Tests
     public class InputServiceTests
     {
         private readonly IInputService _inputService;
-        private readonly InputRepository _inputRepository = Substitute.For<InputRepository>();
+        private readonly IRepository<Input> _inputRepository = Substitute.For<IRepository<Input>>();
 
         public InputServiceTests()
         {
@@ -22,33 +22,34 @@ namespace Journal.Service.Tests
             // Arrange
             var existingInput = new Input { Id = 1, InputText = "Test" };
             _inputRepository.Find(1).Returns(existingInput);
-            var updatedInput = existingInput;
-            updatedInput.InputText = "Updated Test";
-
+            
+            var updatedText = "Updated test";
+            _inputRepository.Update(Arg.Any<Input>()).Returns(Input.BuildNewInput(updatedText));
+            
             // Act
-            var response = await _inputRepository.Update(updatedInput);
+            var response = await _inputService.UpdateInputAsync(existingInput.Id, updatedText);
 
             // Assert
             Assert.NotNull(response);
-            Assert.Equal(response.InputText, updatedInput.InputText);
+            Assert.Equal(response.InputText, updatedText);
         }
 
         [Fact]
         public async Task Should_ReturnNull_WhenInputTextIsTooLong()
         {
             // Arrange
-
-
+            var bigText = new string('X', 600);
+            
             // Act
-
+            var response = await _inputService.CreateInputAsync(bigText);
 
             // Assert
-
+            Assert.Null(response);
         }
 
 
         [Fact]
-        public async Task Should_RetunNull_WhenRecord_DoesntExist()
+        public async Task Should_ReturnNull_WhenRecord_DoesntExist()
         {
             // Arrange
 
